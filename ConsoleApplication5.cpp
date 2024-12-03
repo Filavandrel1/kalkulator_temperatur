@@ -1,6 +1,3 @@
-// ConsoleApplication3.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
 #include "functions.cpp"
 
@@ -32,6 +29,7 @@ static void menu() {
     cout << "5 - Przelicz Kelwin -> Celsius" << endl;
     cout << "6 - Przelicz Kelwin -> Fahr" << endl;
     cout << "7 - wyswietl historie" << endl;
+    cout << "8 - usun z historii" << endl;
     cout << "-1 - zakoncz dzialanie programu" << endl;
 }
 
@@ -46,8 +44,9 @@ static void menu_units() {
 
 int main()
 {
- 
+
     temperature history[100];
+    temperature garbage;
     int dataCounter = 0;
     int choosen;
     float number;
@@ -59,7 +58,7 @@ int main()
         cin >> choosen;
         switch (choosen)
         {
-        
+
         case 1:
             system("cls");
             number = getValue();
@@ -69,9 +68,10 @@ int main()
             }
             if (dataCounter < 100) {
                 cout << number << " Fahr, to: " << FtoC(number, &history[dataCounter++]) << " Celsius" << endl;
-            }else{
-                cout << number << " Fahr, to: " << FtoC(number) << " Celsius" << endl;
-                cout << "nowe przeliczenie nie dosta³o dodane do historii" << endl;
+            }
+            else {
+                cout << number << " Fahr, to: " << FtoC(number, &garbage) << " Celsius" << endl;
+                cout << "nowe przeliczenie nie zostalo dodane do historii" << endl;
             }
             system("pause");
             system("cls");
@@ -83,7 +83,13 @@ int main()
                 cout << "Podano za mala liczbe" << endl;
                 break;
             }
-            cout << number << " Fahr, to: " << FtoK(number, &history[dataCounter++]) << " Kelwin" << endl;
+            if (dataCounter < 100) {
+                cout << number << " Fahr, to: " << FtoK(number, &history[dataCounter++]) << " Kelwin" << endl;
+            }
+            else {
+                cout << number << " Fahr, to: " << FtoK(number, &garbage) << " Kelwin" << endl;
+                cout << "nowe przeliczenie nie zostalo dodane do historii" << endl;
+            }
             system("pause");
             system("cls");
             break;
@@ -94,7 +100,13 @@ int main()
                 cout << "Podano za mala liczbe" << endl;
                 break;
             }
-            cout << number << " Celsius, to: " << CtoF(number, &history[dataCounter++]) << " Fahr" << endl;
+            if (dataCounter < 100) {
+                cout << number << " Celsius, to: " << CtoF(number, &history[dataCounter++]) << " Fahr" << endl;
+            }
+            else {
+                cout << number << " Celsius, to: " << CtoF(number, &garbage) << " Fahr" << endl;
+                cout << "nowe przeliczenie nie zostalo dodane do historii" << endl;
+            }
             system("pause");
             system("cls");
             break;
@@ -105,7 +117,13 @@ int main()
                 cout << "Podano za mala liczbe" << endl;
                 break;
             }
-            cout << number << " Celsius, to: " << CtoK(number, &history[dataCounter++]) << " Kelwin" << endl;
+            if (dataCounter < 100) {
+                cout << number << " Celsius, to: " << CtoK(number, &history[dataCounter++]) << " Kelwin" << endl;
+            }
+            else {
+                cout << number << " Celsius, to: " << CtoK(number, &garbage) << " Kelwin" << endl;
+                cout << "nowe przeliczenie nie zostalo dodane do historii" << endl;
+            }
             system("pause");
             system("cls");
             break;
@@ -116,7 +134,13 @@ int main()
                 cout << "Podano za mala liczbe" << endl;
                 break;
             }
-            cout << number << " Kelwin, to: " << KtoF(number, &history[dataCounter++]) << " Fahr" << endl;
+            if (dataCounter < 100) {
+                cout << number << " Kelwin, to: " << KtoF(number, &history[dataCounter++]) << " Fahr" << endl;
+            }
+            else {
+                cout << number << " Kelwin, to: " << KtoF(number, &garbage) << " Fahr" << endl;
+                cout << "nowe przeliczenie nie zostalo dodane do historii" << endl;
+            }
             system("pause");
             system("cls");
             break;
@@ -127,7 +151,13 @@ int main()
                 cout << "Podano za mala liczbe" << endl;
                 break;
             }
-            cout << number << " Kelwin, to: " << KtoC(number, &history[dataCounter++]) << " Celsius" << endl;
+            if (dataCounter < 100) {
+                cout << number << " Kelwin, to: " << KtoC(number, &history[dataCounter++]) << " Celsius" << endl;
+            }
+            else {
+                cout << number << " Kelwin, to: " << KtoC(number, &garbage) << " Celsius" << endl;
+            cout << "nowe przeliczenie nie zostalo dodane do historii" << endl;
+            }
             system("pause");
             system("cls");
             break;
@@ -138,10 +168,10 @@ int main()
             cin >> option;
 
             switch (option) {
-            case 1: 
+            case 1:
                 for (int i = 0; i < dataCounter; i++) {
                     if (history[i].start_unit == 'C') {
-                    cout << "<" << i + 1 << ">  " << history[i].start_value << history[i].start_unit << " = " << history[i].end_value << history[i].end_unit << endl;
+                        cout << "<" << i + 1 << ">  " << history[i].start_value << history[i].start_unit << " = " << history[i].end_value << history[i].end_unit << endl;
                     }
                 }
                 break;
@@ -152,20 +182,21 @@ int main()
                     }
                 }
                 break;
-            case 3: 
+            case 3:
                 for (int i = 0; i < dataCounter; i++) {
                     if (history[i].start_unit == 'K') {
                         cout << "<" << i + 1 << ">  " << history[i].start_value << history[i].start_unit << " = " << history[i].end_value << history[i].end_unit << endl;
                     }
                 }
                 break;
+
             default:
                 for (int i = 0; i < dataCounter; i++) {
                     cout << "<" << i + 1 << ">  " << history[i].start_value << history[i].start_unit << " = " << history[i].end_value << history[i].end_unit << endl;
                 }
                 break;
             }
-            
+
             system("pause");
             system("cls");
             break;
@@ -180,14 +211,3 @@ int main()
 
     return 0;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
