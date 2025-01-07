@@ -4,10 +4,10 @@
 using namespace std;
 
 static float getValue() {
-    float n;
+    float degrees;
     cout << "Podaj stopie" << endl;
-    cin >> n;
-    return n;
+    cin >> degrees;
+    return degrees;
 }
 
 static bool check(int type, float number) {
@@ -50,9 +50,9 @@ int main()
     int dataCounter = 0;
     int choosen;
     float number;
-    bool program = true;
+    bool is_program_active = true;
 
-    while (program)
+    while (is_program_active)
     {
         menu();
         cin >> choosen;
@@ -201,7 +201,7 @@ int main()
             system("cls");
             break;
         default:
-            program = false;
+            is_program_active = false;
             break;
         }
     }
